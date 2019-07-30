@@ -18,6 +18,10 @@ FUZZ_TOTAL=`ls | grep fuzz |wc |awk '{ print $1 }'`
 INFO_TOTAL=`ls | grep info |wc |awk '{ print $1 }'`
 VULN_TOTAL=`ls | grep vuln |wc |awk '{ print $1 }'`
 
+#Script
+VULNER_STATU=`if [ $(ls nmap-vulners 2>/dev/null |wc |awk '{print $1}') -eq 0 ] ; then echo "[-] nmap-vulners - is not available now, use -h to see how to install it." ; else echo "[+] nmap-vulners is available, good luck !" ; fi`
+VULSCAN_STATU=`if [ $(ls vulscan 2>/dev/null |wc |awk '{print $1}') -eq 0 ] ; then echo "[-] vulscan      - is not available now, use -h to see how to install it." ; else echo "[+] vulscan is available, good luck !" ; fi`
+
 #Servers
 FTP=""
 SSH=""
@@ -32,7 +36,7 @@ SMB=""
 printHelp(){
 	echo "[1] Usage: fluentnmap <Keyword>                     - List related scripts"
 	echo "[2] Usage: fluentnmap <Full Script Name>            - Show the script description"
-	echo "[3] Usage: fluentnmap -d <Full Script Name>	  - Display the script detail"
+	echo "[3] Usage: fluentnmap -d <Full Script Name>         - Display the script detail"
 	echo "[4] Usage: sudo fluentnmap install vulnscanner      - To install the vulnscanner packages (nmap-vulners & vulscan) from github"
 	echo "[5] Usage: sudo fluentnmap remove                   - To remove the vulnscanner packages"
 	echo
@@ -45,15 +49,35 @@ printHelp(){
 }
 
 printInfoBoard(){
-	echo " ___________________________________________________________________"
-	echo "------------------------------------------------------------------ |"
-	echo "| $VERSION                         | |"
-	echo "|                                                                | |"
-	echo "|	<<<<<<<<<<<<<<<<< Total:$SCRIPT_TOTAL >>>>>>>>>>>>>>>>>>>>         | |"
-	echo "|       auth:$AUTH_TOTAL - brute:$BRUTE_TOTAL - broadcast:$BROADCAST_TOTAL - discover:$DISCOVER_TOTAL           | |"
-	echo "|       enum:$ENUM_TOTAL - fuzz:$FUZZ_TOTAL   - info:$INFO_TOTAL      - vuln:$VULN_TOTAL              | |"
-	echo "|                                                                | |"
-	echo "------------------------------------------------------------------"
+         echo ' _____ _                  _   _   _                         '
+         echo '|  ___| |_   _  ___ _ __ | |_| \ | |_ __ ___   __ _ _ __    '
+         echo '| |_  | | | | |/ _ \ __ \| __|  \| | __ ` _ \ / _` | __ \   '
+	 echo '|  _| | | |_| |  __/ | | | |_| |\  | | | | | | (_| | |_) |  '
+	 echo '|_|   |_|\__,_|\___|_| |_|\__|_| \_|_| |_| |_|\__,_| .__/   '
+         echo '                                                   |_|      '
+
+ 	 echo "------------------------------------------------------------"
+	 echo " A mate of nmap."
+	 echo " Clean, Concise and Straightforward."
+	 echo " Help you to be familiar with nmap scripts."
+         echo "------------------------------------------------------------"
+
+	 echo "$VERSION"
+	 echo "	<<<<<<<<<<<<<<<<<<< Total:$SCRIPT_TOTAL >>>>>>>>>>>>>>>>>>>>"
+	 echo "          auth:$AUTH_TOTAL - brute:$BRUTE_TOTAL - broadcast:$BROADCAST_TOTAL - discover:$DISCOVER_TOTAL"
+	 echo "          enum:$ENUM_TOTAL    - fuzz:$FUZZ_TOTAL   - info:$INFO_TOTAL    - vuln:$VULN_TOTAL"
+	 echo "$VULNER_STATU"
+	 echo "$VULSCAN_STATU"
+	 echo
+#	echo " ___________________________________________________________________"
+#	echo "------------------------------------------------------------------ |"
+#	echo "| $VERSION                         | |"
+#	echo "|                                                                | |"
+#	echo "|	<<<<<<<<<<<<<<<<< Total:$SCRIPT_TOTAL >>>>>>>>>>>>>>>>>>>>         | |"
+#	echo "|       auth:$AUTH_TOTAL - brute:$BRUTE_TOTAL - broadcast:$BROADCAST_TOTAL - discover:$DISCOVER_TOTAL           | |"
+#	echo "|       enum:$ENUM_TOTAL - fuzz:$FUZZ_TOTAL   - info:$INFO_TOTAL      - vuln:$VULN_TOTAL              | |"
+#	echo "|                                                                | |"
+#	echo "------------------------------------------------------------------"
 }
 
 if [ $# -eq 1 ] ; then
