@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Auther:0r1MyW4y
+
 #Path /To modify the path by yourself
 SCRIPT_PATH="/usr/share/nmap/scripts"
 cd $SCRIPT_PATH
