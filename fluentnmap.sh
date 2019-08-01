@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#Auther:0r1MyW4y
-
 #Path /To modify the path by yourself
 SCRIPT_PATH="/usr/share/nmap/scripts"
 cd $SCRIPT_PATH
@@ -68,10 +66,10 @@ printInfoBoard(){
 	 echo "	<<<<<<<<<<<<<<<<<<< Total:$SCRIPT_TOTAL >>>>>>>>>>>>>>>>>>>>"
 	 echo "          auth:$AUTH_TOTAL - brute:$BRUTE_TOTAL - broadcast:$BROADCAST_TOTAL - discover:$DISCOVER_TOTAL"
 	 echo "          enum:$ENUM_TOTAL    - fuzz:$FUZZ_TOTAL   - info:$INFO_TOTAL    - vuln:$VULN_TOTAL"
+	 echo "           (use option -h/--help to see the help page)"
 	 echo "$VULNER_STATU"
 	 echo "$VULSCAN_STATU"
 	 echo
-
 }
 
 if [ $# -eq 1 ] ; then
