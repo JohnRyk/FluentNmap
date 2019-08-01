@@ -71,15 +71,7 @@ printInfoBoard(){
 	 echo "$VULNER_STATU"
 	 echo "$VULSCAN_STATU"
 	 echo
-#	echo " ___________________________________________________________________"
-#	echo "------------------------------------------------------------------ |"
-#	echo "| $VERSION                         | |"
-#	echo "|                                                                | |"
-#	echo "|	<<<<<<<<<<<<<<<<< Total:$SCRIPT_TOTAL >>>>>>>>>>>>>>>>>>>>         | |"
-#	echo "|       auth:$AUTH_TOTAL - brute:$BRUTE_TOTAL - broadcast:$BROADCAST_TOTAL - discover:$DISCOVER_TOTAL           | |"
-#	echo "|       enum:$ENUM_TOTAL - fuzz:$FUZZ_TOTAL   - info:$INFO_TOTAL      - vuln:$VULN_TOTAL              | |"
-#	echo "|                                                                | |"
-#	echo "------------------------------------------------------------------"
+
 }
 
 if [ $# -eq 1 ] ; then
