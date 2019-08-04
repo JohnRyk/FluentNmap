@@ -34,11 +34,11 @@ SMB=""
 
 #print this help message
 printHelp(){
-	echo "[1] Usage: fluentnmap <Keyword>                     - List related scripts"
-	echo "[2] Usage: fluentnmap <Full Script Name>            - Show the script description"
+	echo "[1] Usage: fluentnmap    <Keyword>                  - List related scripts"
+	echo "[2] Usage: fluentnmap    <Full Script Name>         - Show the script description"
 	echo "[3] Usage: fluentnmap -d <Full Script Name>         - Display the script detail"
-	echo "[4] Usage: sudo fluentnmap install vulnscanner      - To install the vulnscanner packages (nmap-vulners & vulscan) from github"
-	echo "[5] Usage: sudo fluentnmap remove                   - To remove the vulnscanner packages"
+	echo "[4] Usage: sudo fluentnmap install vulnscanner      - To install the vulnscanner packages (nmap-vulners & vulscan) from Github"
+	echo "[5] Usage: sudo fluentnmap remove  vulnscanner      - To remove the vulnscanner packages"
 	echo
 	echo "Example: "
 	echo "   fluentnmap smb"
@@ -102,12 +102,20 @@ if [ $# -eq 1 ] ; then
 	fi
 elif [ $# -eq 2 ] ; then
 	
-	flitered="$(echo $2 |sed -e 's/[^-.[:alnum:]]//g')"
-	match=`echo $flitered |cut -d "." -f 2`
-	
+	#Dispaly all the detail about the choosen NSE script	
 	if [ $1 = '-d' ] ; then
+		flitered="$(echo $2 |sed -e 's/[^-.[:alnum:]]//g')"
+		match=`echo $flitered |cut -d "." -f 2`
 		if [ $match = 'nse' ] ; then
 			less $2
+		else
+			echo "[-] Invalid 4rgument: $2"
+		fi
+	elif [ $2 = '-d' ] ; then
+		flitered="$(echo $1 |sed -e 's/[^-.[:alnum:]]//g')"
+		match=`echo $flitered |cut -d "." -f 2`
+		if [ $match = 'nse' ] ; then
+			less $1
 		else
 			echo "[-] Invalid 4rgument: $2"
 		fi
