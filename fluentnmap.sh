@@ -1,5 +1,7 @@
 #!/bin/bash
-#AUTHOR=0r1MyW4y
+
+#The Path of this script
+FluentNmap_PATH=`pwd`
 
 #Path /To modify the path by yourself
 SCRIPT_PATH="/usr/share/nmap/scripts"
@@ -36,14 +38,16 @@ SMB=""
 #print this help message
 printHelp(){
 	echo "[1] Usage: fluentnmap    <Keyword>                  - List related scripts"
-	echo "[2] Usage: fluentnmap    <Full Script Name>         - Show the script description"
-	echo "[3] Usage: fluentnmap -d <Full Script Name>         - Display the script detail"
-	echo "[4] Usage: sudo fluentnmap install vulnscanner      - To install the vulnscanner packages (nmap-vulners & vulscan) from Github"
-	echo "[5] Usage: sudo fluentnmap remove  vulnscanner      - To remove the vulnscanner packages"
+	echo "[2] Usage: fluentnmap    <Full Script Name>         - Show the script's description"
+	echo "[3] Usage: fluentnmap -d <Full Script Name>         - Display the script detail according to the script name that you specified"
+	echo "[4] Usage: fluentnmap    <Index>                    - Display the script detail according to the index you had specified"
+	echo "[5] Usage: sudo fluentnmap install vulnscanner      - To install the vulnscanner packages (nmap-vulners & vulscan) from Github"
+	echo "[6] Usage: sudo fluentnmap remove                   - To remove the vulnscanner packages"
 	echo
 	echo "Example: "
 	echo "   fluentnmap smb"
 	echo "   fluentnmap smb-brute.nse"
+	echo "   fluentnmap 3"
 	echo "   fluentnmap -d smb-brute.nse"
 	echo
 	exit 1
@@ -73,30 +77,48 @@ printInfoBoard(){
 	 echo
 }
 
+# Check if dataFile was exist. If existed delete it
+#if [ `test -e dataFile; echo $?` -eq 0 ] ; then  rm dataFile ; fi 
+
 if [ $# -eq 1 ] ; then
 
-	#filter unvalid character ( only alapa and - are valid )
+	#filter unvalid character ( only alapa number and - are valid )
 	flitered="$(echo $1 |sed -e 's/[^-.[:alnum:]]//g')"
 
 	#check if the string format is nse script name 
 	match=`echo $flitered |cut -d "." -f 2`
 
+	#filter the input is purely number
+	index="$(echo $1 |sed -e 's/[^[:digit:]]//g')"
+
 	if [ $flitered = $1 ] ; then
-		if [ $flitered = "--help" ] || [ $flitered = "-h" ] ; then
+		#handle the input: --help or -h
+		if [ "$flitered" != "" ] && [ $flitered = "--help" ] || [ $flitered = "-h" ] ; then
 			printInfoBoard
 			printHelp
-		elif [ $flitered = 'remove' ] ; then
+		#handle the input: remove
+		elif [ "$flitered" != "" ] && [ $flitered = 'remove' ] ; then
 			echo "[-] Sure to remove the vuln scanner packages ?"
 			echo "[-] Please input 'y' to remove [y/n]" 
 			read choice
-			if [ $choice = 'y' ] ; then
+			if [ "$choice" != "" ] && [ $choice = 'y' ] ; then
 				message=`rm -r $SCRIPT_PATH/nmap-vulners; rm -r $SCRIPT_PATH/vulscan`
 				echo $message
 			fi
-		elif [ $match = "nse" ] ; then
+		#handle the input: script full name display the describe about nse script
+		elif [ "$match" != "" ] && [ $match = "nse" ] ; then
 		       	sed -n '/description/,/]]/p' $flitered
+		#handle the input: index
+		elif [ "$index" != "" ] && [ $index = $1 ] ; then
+			scriptName="$(head -n $index $FluentNmap_PATH'/dataFile' |tail -n 1 |awk '{print $2}')"
+			echo $scriptName
+			less $scriptName	
+			exit 0
+		#handle the basic keyword matchs searching
 		else
 			cd $SCRIPT_PATH ; ls |grep $flitered |nl
+			ls |grep $flitered |nl > $FluentNmap_PATH'/dataFile'
+			exit 0
 		fi
 	else
 		echo "[-] Parameter 3rror"
@@ -149,7 +171,7 @@ elif [ $# -eq 2 ] ; then
 				fi
 			fi	
 		
-		elif [ $check1 = 'nmap-vulners' ] || [ $check2 = 'vulscan' ] ; then
+		elif [ $check1 -eq 0 ] && [ $check2 -eq 0 ] ; then
 			echo "[!] Error: nmap-vulner is already exit"
 			echo "[-] use: 'nmap -sV --script <nmap-vulners|vulnscan> <Target>'"
 			echo "[-] If you want to remove it try to use: $0 remove nmap-vulners"
