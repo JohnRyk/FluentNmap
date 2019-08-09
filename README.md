@@ -25,7 +25,12 @@
 
 ## Usage:
 
-​	
+```shell
+# Print the help message
+	fluentnmap -h 
+# Or
+	fluentnmap --help
+```
 
 ​	
 
