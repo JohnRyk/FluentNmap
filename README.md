@@ -26,6 +26,8 @@
 ## Usage:
 
 ```shell
+# Link to env var PATH dir
+	ln -s ./fluentnamp /usr/bin/fluentnmap
 # Print the help message
 	fluentnmap -h 
 # Or
