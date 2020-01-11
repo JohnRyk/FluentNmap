@@ -15,7 +15,7 @@ VERSION=`nmap --version |grep version`
 
 #Counter
 counter(){
-	grep -r 'categories =' *.nse | grep -oP '".*?"' |grep $1 |wc |awk '{print $1}'
+	grep -H -r 'categories =' *.nse | grep -P '".*?"' | cut -d '=' -f 2 |grep $1 |wc | awk '{print $1}'
 }
 
 SCRIPT_TOTAL=$(expr `ls -la |wc |awk '{ print $1 }'` - 2)
