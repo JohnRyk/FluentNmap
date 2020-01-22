@@ -142,7 +142,7 @@ if [ $# -eq 1 ] ; then
 			fi
 		#handle the input: script full name display the describe about nse script
 		elif [ "$match" != "" ] && [ $match = "nse" ] ; then
-		       	sed -n '/description/,/]]/p' $flitered
+		       	nmap --script-help $flitered
 		#handle the input: index
 		elif [ "$index" != "" ] && [ $index = $1 ] ; then
 			scriptName="$(head -n $index $DATAFILE_PATH'/dataFile' |tail -n 1 |awk '{print $2}')"
