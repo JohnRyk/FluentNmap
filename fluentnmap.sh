@@ -147,7 +147,8 @@ if [ $# -eq 1 ] ; then
 		elif [ "$index" != "" ] && [ $index = $1 ] ; then
 			scriptName="$(head -n $index $DATAFILE_PATH'/dataFile' |tail -n 1 |awk '{print $2}')"
 			echo $scriptName
-			less $scriptName	
+			#less $scriptName	
+			vi $scriptName
 			exit 0
 		#handle the basic keyword matchs searching
 		else
