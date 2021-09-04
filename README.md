@@ -23,16 +23,16 @@
 
 
 
-## Usage:
+## Install:
 
 ```shell
 # Link to env var PATH dir
-        sudo wget https://raw.githubusercontent.com/JohnRyk/FluentNmap/master/fluentnmap.sh -O /bin/fluentnmap
-        sudo chmod +x /bin/fluentnmap
+sudo wget https://raw.githubusercontent.com/JohnRyk/FluentNmap/master/fluentnmap.sh -O /bin/fluentnmap
+sudo chmod +x /bin/fluentnmap
 # Print the help message
-	fluentnmap -h 
+fluentnmap -h 
 # Or
-	fluentnmap --help
+fluentnmap --help
 ```
 
 ​	
