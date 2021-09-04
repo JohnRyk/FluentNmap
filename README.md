@@ -27,9 +27,8 @@
 
 ```shell
 # Link to env var PATH dir
-        mv ./fluentnmap.sh fluentnmap
-        sudo chmod +x fluentnmap
-	sudo cp ./fluentnmap /usr/bin/fluentnmap
+        sudo wget https://raw.githubusercontent.com/JohnRyk/FluentNmap/master/fluentnmap.sh -O /bin/fluentnmap
+        sudo chmod +x /bin/fluentnmap
 # Print the help message
 	fluentnmap -h 
 # Or
