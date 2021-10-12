@@ -210,7 +210,7 @@ elif [ $# -eq 2 ] ; then
 			fi	
 		
 		elif [ $check1 -eq 0 ] && [ $check2 -eq 0 ] ; then
-			echo "[!] Error: nmap-vulner is already exit"
+			echo "[!] Error: nmap-vulner is already exist"
 			echo "[-] use: 'nmap -sV --script <nmap-vulners|vulnscan> <Target>'"
 			echo "[-] If you want to remove it try to use: $0 remove nmap-vulners"
 			echo
